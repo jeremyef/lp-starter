@@ -1,7 +1,9 @@
 # Landing Page - Starter Kit
 ## Description
 
-Landing page Starter Kit for a wedding
+Landing page Starter Kit
+
+To be used as a base for creating further landing pages.
 
 
 ## Credits
