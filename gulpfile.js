@@ -41,12 +41,6 @@ gulp.task('compile_sass', function(){
   .pipe(gulp.dest('./app/styles'));
 });
 
-gulp.task('move_sass', ['compile_sass'], function(){
-  return gulp.src(settings.sass_css)
-  .pipe(plugins.rename('main.css'))
-  .pipe(gulp.dest('./app/styles/'));
-});
-
 gulp.task('inject', function(cb){
   runSequence('inject_bower', 'inject_main', cb);
 });
