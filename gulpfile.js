@@ -35,12 +35,42 @@ gulp.task('inject_main', function(cb){
 });
 
 // Compile SASS files
-gulp.task('compile_sass', function(){
+gulp.task('compile_sass', function(cb){
   return gulp.src(settings.sass_dir)
   .pipe(plugins.sass.sync().on('error', plugins.sass.logError))
   .pipe(gulp.dest('./app/styles'));
 });
 
+// Starts webserver with watch task.
+gulp.task('webserver', ['watch'], function() {
+  plugins.connect.server({
+    root: settings.app_dir,
+    livereload: true
+  });
+});
+
+// Reloads index
+gulp.task('reload', function () {
+  gulp.src(settings.app_index)
+  .pipe(plugins.connect.reload());
+});
+// Compiles sass THEN reloads index
+gulp.task('reload_sass', ['compile_sass'], function () {
+  gulp.src(settings.app_index)
+  .pipe(plugins.connect.reload());
+});
+
+// Watches for file changes.
+gulp.task('watch', function() {
+  gulp.watch([settings.app_index, settings.scripts_dir], ['reload']);
+  gulp.watch([settings.sass_dir], ['reload_sass']);
+})
+
+
+
 gulp.task('inject', function(cb){
   runSequence('inject_bower', 'inject_main', cb);
+});
+gulp.task('default', function(cb){
+  runSequence('inject','webserver');
 });
