@@ -1,7 +1,7 @@
 {
-  "name": "lp-wedding",
+  "name": "lp-starter",
   "version": "1.0.0",
-  "description": "Landing page for a Wedding",
+  "description": "Landing page Starter kit",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

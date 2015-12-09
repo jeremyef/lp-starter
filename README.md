@@ -1,7 +1,7 @@
-# Landing Page - Wedding
+# Landing Page - Starter Kit
 ## Description
 
-Landing page for a wedding
+Landing page Starter Kit for a wedding
 
 
 ## Credits
