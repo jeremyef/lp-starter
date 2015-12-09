@@ -6,6 +6,7 @@ var wiredep = require('wiredep').stream;
 var bowerFiles = require('main-bower-files');
 var runSequence = require('run-sequence');
 
+// Setting variables
 var settings = {
     app_dir: './app',
     app_index: './app/index.html',
@@ -18,7 +19,7 @@ var settings = {
     styles_main: './app/styles/main.css',
     sass_dir: './app/styles/sass/*.scss',
     sass_css: './app/styles/css/sass.css',
-    bootstrap_dir: './bower_components/bootstrap'
+    bootstrap_dir: './app/bower_components/bootstrap'
 
 };
 // Inject Bower dependencies to src
@@ -41,6 +42,25 @@ gulp.task('compile_sass', function(cb){
   .pipe(gulp.dest('./app/styles'));
 });
 
+
+/* Distribution Tasks */
+
+// Bundles all injected files in index
+gulp.task('dist_bundle_files', function(){
+  return gulp.src(settings.app_index)
+    .pipe(plugins.useref())
+    .pipe(plugins.if('*.js', plugins.uglify()))
+    .pipe(plugins.if('*.css', plugins.minifycss()))
+    .pipe(gulp.dest('dist'));
+});
+// Copies font directory from bootstrap
+gulp.task('dist_copy_fonts', function(){
+  return gulp.src(settings.bootstrap_dir + '/dist/fonts/*')
+    .pipe(gulp.dest(settings.dist_dir + '/fonts'));
+});
+
+
+
 // Starts webserver with watch task.
 gulp.task('webserver', ['watch'], function() {
   plugins.connect.server({
@@ -48,7 +68,6 @@ gulp.task('webserver', ['watch'], function() {
     livereload: true
   });
 });
-
 // Reloads index
 gulp.task('reload', function () {
   gulp.src(settings.app_index)
@@ -59,7 +78,6 @@ gulp.task('reload_sass', ['compile_sass'], function () {
   gulp.src(settings.app_index)
   .pipe(plugins.connect.reload());
 });
-
 // Watches for file changes.
 gulp.task('watch', function() {
   gulp.watch([settings.app_index, settings.scripts_dir], ['reload']);
@@ -73,4 +91,7 @@ gulp.task('inject', function(cb){
 });
 gulp.task('default', function(cb){
   runSequence('inject','webserver');
+});
+gulp.task('dist', function(cb){
+  runSequence('dist_bundle_files','dist_copy_fonts');
 });
