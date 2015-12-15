@@ -68,6 +68,13 @@ gulp.task('webserver', ['watch'], function() {
     livereload: true
   });
 });
+// Starts webserver for dist directory
+gulp.task('webserver_dist', function() {
+   plugins.connect.server({
+    root: settings.dist_dir,
+    livereload: true
+  });
+});
 // Reloads index
 gulp.task('reload', function () {
   gulp.src(settings.app_index)
@@ -93,5 +100,5 @@ gulp.task('default', function(cb){
   runSequence('inject','webserver');
 });
 gulp.task('dist', function(cb){
-  runSequence('dist_bundle_files','dist_copy_fonts');
+  runSequence('dist_bundle_files','dist_copy_fonts','webserver_dist');
 });
