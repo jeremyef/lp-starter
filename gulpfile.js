@@ -1,12 +1,12 @@
 'use strict';
 
 // Initialize required packages
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')(
-  {rename: {'gulp-minify-css': 'minifycss'}}
+var gulp = require('gulp');                       // Our task runner
+var plugins = require('gulp-load-plugins')(       // Auto loads all gulp plugins
+  {rename: {'gulp-minify-css': 'minifycss'}}        // Overwrites the plugin shortname
 );
-var wiredep = require('wiredep').stream;
-var runSequence = require('run-sequence');
+var wiredep = require('wiredep').stream;          // For injection tasks
+var runSequence = require('run-sequence');        // For running tasks/jobs in sequence.
 
 /* Setting variables
   A javascript dictionary with key pair values for directory settings.
@@ -31,8 +31,9 @@ var settings = {
     bootstrap_dir: './app/bower_components/bootstrap'
 
 };
+
 /* ------------
-   Injection Tasks - These tasks are used to inject css/js resources into index.html
+   Injection Tasks - These sub tasks are used to inject css/js resources into index.html
    ------------ */
 
 /* Inject Bower dependencies to src
@@ -71,7 +72,7 @@ gulp.task('inject_main', function(cb){
 });
 
 /* ------------
-   Compile Tasks - These tasks are used to compile various files
+   Compile Tasks - These sub tasks are used to compile various files
    ------------ */
 
 /* Compile SASS files
@@ -85,9 +86,8 @@ gulp.task('compile_sass', function(cb){
   .pipe(gulp.dest(settings.styles_dir));
 });
 
-
 /* ------------
-   Distribution Tasks - These tasks are used to create a distribution version of the app in the dist directory (settings.dist_dir)
+   Distribution Tasks - These sub tasks are used to create a distribution version of the app in the dist directory (settings.dist_dir)
    ------------ */
 
 /* Bundles all injected files in index
@@ -128,47 +128,67 @@ gulp.task('dist_copy_fonts', function(){
 });
 
 /* ------------
-   Webserver Tasks - These tasks are used to create a webserver that will load the app directory (settings.app_dir) as the root directory
+   Webserver Tasks - These sub tasks are used to create a webserver that will load the app directory (settings.app_dir) as the root directory
    ------------ */
 
-// Starts webserver with watch task.
+/* Starts webserver for app directory with watch task.
+    Will create a webserver using the settings.app_dir as the root directory.
+    Also calls the webserver_watch task.
+*/
 gulp.task('webserver', ['webserver_watch'], function() {
   plugins.connect.server({
     root: settings.app_dir,
     livereload: true
   });
 });
-// Starts webserver for dist directory
+/* Starts webserver for dist directory with watch task.
+    Will create a webserver using the settings.dist_dir as the root directory.
+    Also calls the webserver_watch task.
+*/
 gulp.task('webserver_dist', function() {
    plugins.connect.server({
     root: settings.dist_dir,
     livereload: true
   });
 });
-// Reloads index
+/* Reloads the src file.
+    Will take the app_index and reload that page.
+    This will be called whenver the watch tasks finds an updated html/script file to automatically refresh the page.
+*/
 gulp.task('webserver_reload', function () {
   gulp.src(settings.app_index)
   .pipe(plugins.connect.reload());
 });
-// Compiles sass THEN reloads index
+/* Compiles sass THEN reloads index
+    Will take the app_index and reload that page.
+    This will be called whenver the watch tasks finds an scss file to compile the sass file then automatically refresh the page.
+*/
 gulp.task('webserver_reload_sass', ['compile_sass'], function () {
   gulp.src(settings.app_index)
   .pipe(plugins.connect.reload());
 });
-// Watches for file changes.
+/*  Watches for file changes.
+      Watcher task that looks at the settings.app_index and settings.scripts_dir_all directory for changes then will call webserver_reload.
+      Will watch the settings.sass_dir for changes and will call the webserver_reload_sass which will compile it then reload the page.
+*/
 gulp.task('webserver_watch', function() {
   gulp.watch([settings.app_index, settings.scripts_dir_all], ['webserver_reload']);
   gulp.watch([settings.sass_dir_all], ['webserver_reload_sass']);
 })
 
+/* ------------
+   Primary Tasks - These primary tasks call sub tasks to run in sequence.
+   ------------ */
 
-
-gulp.task('inject', function(cb){
-  runSequence('inject_bower', 'inject_main', cb);
-});
+/* Default/Development tasks */
 gulp.task('default', function(cb){
   runSequence('inject','webserver');
 });
+/* Distribution tasks */
 gulp.task('dist', function(cb){
   runSequence('dist_bundle_files','dist_copy_fonts','webserver_dist');
+});
+/* Inject tasks */
+gulp.task('inject', function(cb){
+  runSequence('inject_bower', 'inject_main', cb);
 });
