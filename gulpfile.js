@@ -152,6 +152,7 @@ gulp.task('webserver_dist', function() {
     root: settings.dist_dir,
     livereload: true
   });
+  opn('http://localhost:8080', {app: ['google chrome']});
 });
 /* Reloads the src file.
     Will take the app_index and reload that page.
