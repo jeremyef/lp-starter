@@ -4,7 +4,8 @@
   "description": "Landing page Starter kit",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && bower install && echo \"$(tput bold)Install Complete \r\n$(tput setaf 1)$(tput bold)Run 'gulp default' to start$(tput sgr 0)\""
   },
   "author": "Jeremy Ferrer",
   "license": "ISC",
@@ -22,7 +23,6 @@
     "gulp-sass": "^2.1.0",
     "gulp-uglify": "^1.5.1",
     "gulp-useref": "^3.0.3",
-    "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "main-bower-files": "^2.9.0",
     "run-sequence": "^1.1.5",
