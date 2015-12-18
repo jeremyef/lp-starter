@@ -135,6 +135,7 @@ gulp.task('dist_copy_fonts', function(){
 /* Starts webserver for app directory with watch task.
     Will create a webserver using the settings.app_dir as the root directory.
     Also calls the webserver_watch task.
+    Will open localhost:8080 in default browser.
 */
 gulp.task('webserver', ['webserver_watch'], function() {
   plugins.connect.server({
@@ -146,6 +147,7 @@ gulp.task('webserver', ['webserver_watch'], function() {
 /* Starts webserver for dist directory with watch task.
     Will create a webserver using the settings.dist_dir as the root directory.
     Also calls the webserver_watch task.
+    Will open localhost:8080 in default browser.
 */
 gulp.task('webserver_dist', function() {
    plugins.connect.server({
