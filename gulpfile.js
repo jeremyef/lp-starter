@@ -7,6 +7,7 @@ var plugins = require('gulp-load-plugins')(       // Auto loads all gulp plugins
 );
 var wiredep = require('wiredep').stream;          // For injection tasks
 var runSequence = require('run-sequence');        // For running tasks/jobs in sequence.
+var opn = require('opn');
 
 /* Setting variables
   A javascript dictionary with key pair values for directory settings.
@@ -140,6 +141,7 @@ gulp.task('webserver', ['webserver_watch'], function() {
     root: settings.app_dir,
     livereload: true
   });
+  opn('http://localhost:8080', {app: ['google chrome']});
 });
 /* Starts webserver for dist directory with watch task.
     Will create a webserver using the settings.dist_dir as the root directory.
