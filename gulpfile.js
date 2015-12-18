@@ -141,7 +141,7 @@ gulp.task('webserver', ['webserver_watch'], function() {
     root: settings.app_dir,
     livereload: true
   });
-  opn('http://localhost:8080', {app: ['google chrome']});
+  opn('http://localhost:8080');
 });
 /* Starts webserver for dist directory with watch task.
     Will create a webserver using the settings.dist_dir as the root directory.
@@ -152,7 +152,7 @@ gulp.task('webserver_dist', function() {
     root: settings.dist_dir,
     livereload: true
   });
-  opn('http://localhost:8080', {app: ['google chrome']});
+  opn('http://localhost:8080');
 });
 /* Reloads the src file.
     Will take the app_index and reload that page.
