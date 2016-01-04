@@ -146,7 +146,7 @@ gulp.task('webserver', ['webserver_watch'], function() {
 });
 /* Starts webserver for dist directory with watch task.
     Will create a webserver using the settings.dist_dir as the root directory.
-    Also calls the webserver_watch task.
+    Will NOT call the webserver_watch task.
     Will open localhost:8080 in default browser.
 */
 gulp.task('webserver_dist', function() {
