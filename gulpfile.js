@@ -7,7 +7,7 @@ var plugins = require('gulp-load-plugins')(       // Auto loads all gulp plugins
 );
 var wiredep = require('wiredep').stream;          // For injection tasks
 var runSequence = require('run-sequence');        // For running tasks/jobs in sequence.
-var opn = require('opn');
+var opn = require('opn');                         // For openeing urls.
 
 /* Setting variables
   A javascript dictionary with key pair values for directory settings.

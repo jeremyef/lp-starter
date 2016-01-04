@@ -1,14 +1,12 @@
 {
-  "name": "lp-starter",
+  "name": "web-starter",
   "version": "1.0.0",
-  "description": "Landing page Starter kit",
-  "main": "index.js",
+  "description": "Web page Starter kit",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm install && bower install && echo \"$(tput bold)Install Complete \r\n$(tput setaf 1)$(tput bold)Run 'gulp default' to start$(tput sgr 0)\""
   },
   "author": "Jeremy Ferrer",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-bower-src": "^0.1.0",
