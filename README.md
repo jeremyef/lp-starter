@@ -10,14 +10,17 @@ This is a boilerplate for web development, aimed for users that aren't brand new
 # Quick Start
 1. Install [Node](https://nodejs.org/en/) and [Bower](http://bower.io/#install-bower)
 2. Download a [Zip](https://github.com/jeremyef/lp-starter/archive/master.zip) or Clone this repository
+
   ```
    git clone https://github.com/jeremyef/web-starter.git
   ```
 3. Navigate to the directory and run:
+
   ```
    npm start
   ```
 4. Run the *default* Gulp task:
+
   ```
   gulp default
   ```
