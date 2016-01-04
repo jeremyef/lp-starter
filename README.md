@@ -64,14 +64,14 @@ There are files/folders in this structure that aren't visible from the Git Repos
 ### NPM
 NPM is a package manager that comes with [Node](https://nodejs.org/en/), its used to manage dependencies for an application.
 
-
-
 ### Gulp
 This package uses [Gulp](https://github.com/gulpjs/gulp) as a task runner to simplify the workflow of web developing.
+
 ### Bower
 [Bower](http://bower.io/#install-bower) is also a package manager, but focuses more towards Front-end dependencies/libraries. While its possible to use NPM to manage Front-end dependencies using [Browserify](https://www.npmjs.com/package/browserify), i've specifically chosen to continue using bower as I prefer to have some sort of separation between front-end and app dependencies.
 
 
 ## Credits & Licence
-Written by: Jeremy Ferrer (jeremy.eferrer@gmail.com)
+Written by: Jeremy Ferrer ([jeremy.eferrer@gmail.com](mailto:jeremy.eferrer@gmail.com))
+
 Using MIT Licence
